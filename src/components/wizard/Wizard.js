@@ -20,7 +20,7 @@ const steps = [
   },
 ]
 
-const App = () => {
+const Wizard = () => {
   const { token } = theme.useToken()
   const [current, setCurrent] = useState(0)
 
@@ -84,4 +84,4 @@ const App = () => {
     </>
   )
 }
-export default App
+export default Wizard
