@@ -1,6 +1,9 @@
 import { Breadcrumb, Layout, theme } from 'antd'
 const { Header, Content, Footer } = Layout
 
+const logoUrl =
+  'https://smartmover.co.za/wp-content/uploads/2022/02/cropped-SMART-TRANSPARENT-e1645079197871-1.png'
+
 const Wizard = (props) => {
   const {
     token: { colorBgContainer },
@@ -10,24 +13,24 @@ const Wizard = (props) => {
     <Layout className="layout">
       <Header style={{ backgroundColor: 'white' }}>
         <div className="logo" />
-        <img
-          src="https://smartmover.co.za/wp-content/uploads/2022/02/cropped-SMART-TRANSPARENT-e1645079197871-1.png"
-          height="40"
-          alt="logo"
-        />
+        <img src={logoUrl} height="40" alt="logo" />
       </Header>
       <Content
         style={{
-          padding: '0 50px',
+          padding: '0 30px',
+          overflowY: "scroll"
+
         }}
       >
         <Breadcrumb
           style={{
             margin: '16px 0',
-            cursor: 'pointer'
           }}
         >
           <Breadcrumb.Item
+            style={{
+              cursor: 'pointer',
+            }}
             onClick={() => {
               console.log('clicked')
             }}
@@ -40,20 +43,24 @@ const Wizard = (props) => {
           className="site-layout-content"
           style={{
             background: colorBgContainer,
-            height: '80vh',
-            width: '100%',
-            padding: 40
+            minHeight: '80vh',
+            padding: 20,
           }}
         >
           {props.children}
         </div>
+
       </Content>
       <Footer
         style={{
           textAlign: 'center',
+        //   height: '20vh',
+          bottom: 0,
+          position: "static",
+          width: "100%"
         }}
       >
-        Smart Smover ©2023 Created by Mdtsolutions.
+        Smart Smover ©{new Date().getFullYear()} Created by Mdtsolutions.
       </Footer>
     </Layout>
   )

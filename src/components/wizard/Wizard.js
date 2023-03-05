@@ -1,38 +1,46 @@
 import { Button, message, Steps, theme } from 'antd'
 import { useState } from 'react'
+import FirstStep from '../steps/FirstStep'
+import SecondStep from '../steps/SecondStep'
+import ThirdStep from '../steps/ThirdStep'
+import LastStep from '../steps/LastStep'
 
 const steps = [
   {
-    title: 'First',
-    content: 'First-content',
+    // title: '1',
+    content: <FirstStep />,
   },
   {
-    title: 'Second',
-    content: 'Second-content',
+    // title: '2',
+    content: <SecondStep />,
   },
   {
-    title: 'Third',
-    content: 'Second-content',
+    // title: '3',
+    content: <ThirdStep />,
   },
   {
-    title: 'Last',
-    content: 'Last-content',
+    // title: '4',
+    content: <LastStep />,
   },
 ]
 
 const App = () => {
   const { token } = theme.useToken()
   const [current, setCurrent] = useState(0)
+
   const next = () => {
     setCurrent(current + 1)
   }
+
   const prev = () => {
     setCurrent(current - 1)
   }
+
   const items = steps.map((item) => ({
     key: item.title,
     title: item.title,
   }))
+
   const contentStyle = {
     lineHeight: '260px',
     textAlign: 'center',
@@ -41,14 +49,19 @@ const App = () => {
     borderRadius: token.borderRadiusLG,
     border: `1px dashed ${token.colorBorder}`,
     marginTop: 16,
+    // padding: 50,
+    overflowY: "scroll"
+
   }
   return (
     <>
-      <Steps style={{width: "100%"}} current={current} items={items} />
+      <Steps current={current} items={items} />
       <div style={contentStyle}>{steps[current].content}</div>
       <div
         style={{
           marginTop: 24,
+          overflowY: "scroll"
+
         }}
       >
         {current < steps.length - 1 && (
@@ -59,7 +72,7 @@ const App = () => {
         {current === steps.length - 1 && (
           <Button
             type="primary"
-            onClick={() => message.success('Processing complete!')}
+            onClick={() => message.success('Successfully submitted form!')}
           >
             Done
           </Button>
