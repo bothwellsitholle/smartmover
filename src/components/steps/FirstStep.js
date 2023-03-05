@@ -33,10 +33,7 @@ export default function FirstStep() {
             label="Full Name: "
             rules={[{ required: true }]}
           >
-            <Input
-              value={fullName}
-               onChange={setFullName}
-            />
+            <Input value={fullName} onChange={setFullName} />
           </Form.Item>
           <Form.Item name="phone" label="Phone: " rules={[{ required: true }]}>
             <NumericInput value={phone} onChange={setPhone} />

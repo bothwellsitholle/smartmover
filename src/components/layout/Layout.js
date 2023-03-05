@@ -18,8 +18,7 @@ const Wizard = (props) => {
       <Content
         style={{
           padding: '0 30px',
-          overflowY: "scroll"
-
+          overflowY: 'scroll',
         }}
       >
         <Breadcrumb
@@ -49,15 +48,13 @@ const Wizard = (props) => {
         >
           {props.children}
         </div>
-
       </Content>
       <Footer
         style={{
           textAlign: 'center',
-        //   height: '20vh',
           bottom: 0,
-          position: "static",
-          width: "100%"
+          position: 'static',
+          width: '100%',
         }}
       >
         Smart Smover ©{new Date().getFullYear()} Created by Mdtsolutions.

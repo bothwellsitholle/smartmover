@@ -7,19 +7,15 @@ import LastStep from '../steps/LastStep'
 
 const steps = [
   {
-    // title: '1',
     content: <FirstStep />,
   },
   {
-    // title: '2',
     content: <SecondStep />,
   },
   {
-    // title: '3',
     content: <ThirdStep />,
   },
   {
-    // title: '4',
     content: <LastStep />,
   },
 ]
@@ -49,9 +45,7 @@ const App = () => {
     borderRadius: token.borderRadiusLG,
     border: `1px dashed ${token.colorBorder}`,
     marginTop: 16,
-    // padding: 50,
-    overflowY: "scroll"
-
+    overflowY: 'scroll',
   }
   return (
     <>
@@ -60,8 +54,7 @@ const App = () => {
       <div
         style={{
           marginTop: 24,
-          overflowY: "scroll"
-
+          overflowY: 'scroll',
         }}
       >
         {current < steps.length - 1 && (
