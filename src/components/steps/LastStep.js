@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { useState } from 'react'
 import { Form, Input, Row, Col, Select, Radio } from 'antd'
+import { FormContext } from '../../App'
 
 const { Search } = Input
 const { Option } = Select
@@ -20,12 +20,8 @@ const moving_date = [
 
 const optionsList = ['yes', 'no']
 
-export default function LastStep() {
-  const [form] = Form.useForm()
-  const [packing, setPacking] = useState('yes')
-  const [emailQuote, setEmailQuote] = useState('yes')
-//   const [stairs, setStairs] = useState('None/pick up')
-//   const [movingDate, setMovingDate] = useState('Between 25th and 27th')
+export default function LastStep(props) {
+  const ctx = React.useContext(FormContext)
 
   const onFinish = (values) => {
     console.log(values)
@@ -39,11 +35,15 @@ export default function LastStep() {
         <Form
           {...layout}
           layout="vertical"
-          form={form}
+          form={props.form}
           name="control-hooks"
           onFinish={onFinish}
           style={{ padding: 30 }}
-          initialValues={{stairs: 'None/pick up',  movingDate: 'Between 25th and 27th', packing:'yes', emailQuote: 'yes'}}
+          onValuesChange={async (changedValues, allValues) => {
+            ctx.setSecondStep(allValues)
+            console.log('allValues', allValues)
+          }}
+          initialValues={ctx.lastStep}
         >
           <Form.Item
             name="pickupAddress"
@@ -76,8 +76,6 @@ export default function LastStep() {
           >
             <Select
               placeholder="Are there stairs at your respective addresses?"
-            //   onChange={(e) => setStairs(e.target.value)}
-            //   value={stairs}
               allowClear
             >
               {stairs_list.map((option) => (
@@ -92,12 +90,7 @@ export default function LastStep() {
             label="When do you want to move?"
             rules={[{ required: true }]}
           >
-            <Select
-              placeholder="When do you want to move?"
-            //   onChange={(e) => setMovingDate(e.target.value)}
-            //   value={movingDate}
-              allowClear
-            >
+            <Select placeholder="When do you want to move?" allowClear>
               {moving_date.map((option) => (
                 <Option key={option} value={option}>
                   {option}
@@ -110,10 +103,7 @@ export default function LastStep() {
             label="Do you require packing of boxes?"
             rules={[{ required: true }]}
           >
-            <Radio.Group
-              onChange={(e) => setPacking(e.target.value)}
-              value={packing}
-            >
+            <Radio.Group>
               {optionsList.map((option) => (
                 <Radio key={option} value={option}>
                   {option}
@@ -126,10 +116,7 @@ export default function LastStep() {
             label="Would you like us to email you a full quotation?"
             rules={[{ required: true }]}
           >
-            <Radio.Group
-              onChange={(e) => setEmailQuote(e.target.value)}
-              value={emailQuote}
-            >
+            <Radio.Group>
               {optionsList.map((option) => (
                 <Radio key={option} value={option}>
                   {option}

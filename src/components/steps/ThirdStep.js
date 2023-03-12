@@ -1,21 +1,29 @@
 import * as React from 'react'
 import { useState } from 'react'
 import { Form, Input, Row, Col } from 'antd'
+import { FormContext } from '../../App'
 
 const layout = {
   labelCol: { span: 12 },
   wrapperCol: { span: 20 },
 }
 
-export default function ThirdStep() {
-  const [form] = Form.useForm()
+export default function ThirdStep(props) {
   const [specialEquipment, setSpecialEquipment] = useState('')
   const [availableItems, setAvailableItems] = useState('')
   const [extraItems, setExtraItems] = useState('')
 
+  const ctx = React.useContext(FormContext);
+
   const onFinish = (values) => {
     console.log(values)
   }
+
+  React.useEffect(()=> {
+    ctx.setThirdStep((prev) => {
+      return { ...prev, isValid: true }
+    })
+  })
 
   return (
     <Row justify="center">
@@ -23,10 +31,15 @@ export default function ThirdStep() {
         <Form
           {...layout}
           layout="vertical"
-          form={form}
+          form={props.form}
           name="control-hooks"
           onFinish={onFinish}
           style={{ padding: 30 }}
+          onValuesChange={async (changedValues, allValues) => {
+            ctx.setThirdStep(allValues)
+            console.log('allValues', allValues)
+          }}
+          initialValues={ctx.thirdStep}
         >
           <Form.Item
             name="specialEquipment"

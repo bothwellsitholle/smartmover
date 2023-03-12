@@ -38,7 +38,7 @@ const NumericInput = (props) => {
         onChange={handleChange}
         onBlur={handleBlur}
         placeholder="Enter phone number"
-        maxLength={16}
+        // maxLength={16}
       />
     </Tooltip>
   )

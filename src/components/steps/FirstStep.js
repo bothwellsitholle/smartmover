@@ -1,17 +1,15 @@
 import * as React from 'react'
-import { useState } from 'react'
 import { Form, Input, Row, Col } from 'antd'
 import NumericInput from '../UI/NumericInput'
+import { FormContext } from '../../App'
 
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 24 },
 }
 
-export default function FirstStep() {
-  const [form] = Form.useForm()
-  const [phone, setPhone] = useState('')
-  const [fullName, setFullName] = useState('')
+export default function FirstStep(props) {
+  const ctx = React.useContext(FormContext)
 
   const onFinish = (values) => {
     console.log(values)
@@ -23,20 +21,25 @@ export default function FirstStep() {
         <Form
           {...layout}
           layout="vertical"
-          form={form}
+          form={props.form}
           name="control-hooks"
           onFinish={onFinish}
           style={{ padding: 30 }}
+          initialValues={ctx.firstStep}
+          onValuesChange={async (changedValues, allValues) => {
+            ctx.setFirstStep(allValues)
+            console.log('allValues', allValues)
+          }}
         >
           <Form.Item
             name="fullName"
             label="Full Name: "
-            rules={[{ required: true }]}
+            rules={[{ required: true, min: 2 }]}
           >
-            <Input value={fullName} onChange={setFullName} />
+            <Input />
           </Form.Item>
           <Form.Item name="phone" label="Phone: " rules={[{ required: true }]}>
-            <NumericInput value={phone} onChange={setPhone} />
+            <NumericInput />
           </Form.Item>
         </Form>
       </Col>
